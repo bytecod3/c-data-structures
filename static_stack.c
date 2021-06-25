@@ -8,10 +8,15 @@ display
 */
 
 #include <stdio.h>
+
 #define N 5
+
+#define TRUE 1 // boolean
+#define FALSE 0
+
 int stack[N];
 int top = -1;
-int i, popped;
+int i, popped_element_element;
 
 //add_to_stack
 void push(int element){ 
@@ -35,14 +40,14 @@ int pop(){
        // empty stack
        printf("Stack is empty");
     }else if(top == 0){
-         popped = stack[0]; // return deleted element
+         popped_element_element = stack[0]; // return deleted element
          top--;
     }else{
-        popped = stack[top];
+        popped_element_element = stack[top];
         top--;
     }
 
-    return popped;    
+    return popped_element_element;    
 }
 
 //peek_element
@@ -65,7 +70,22 @@ void display(){
     }
 }
 
-/* todo: check functions
-1. is_true()
-2. is_empty()
-*/
+// is_empty
+int is_empty(){
+    if (top == -1){
+        return  TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
+// is_full
+int is_full(){
+    if(top == N-1){
+        return TRUE;
+    }else{
+        return FALSE;
+    }
+}
+
+
