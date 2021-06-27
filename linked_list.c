@@ -8,10 +8,7 @@ struct node{
     struct node* next;
 };
 
-struct node* head, *new_node, *temp, *previous_node, *current_node;
-
-// initially head points to 0
-head = 0;
+struct node* head = NULL, *new_node, *temp, *previous_node, *current_node; // initially head points to NULL
 
 // create a new node
 void init_list(){
@@ -23,10 +20,10 @@ void init_list(){
         scanf("%d", &new_node->data);
 
         // the new_node's address part now contains a zero
-        new_node->next = 0;
+        new_node->next = NULL;
 
         // update head address to the new node
-        if (head == 0){
+        if (head == NULL){
             head = new_node;
             temp = new_node;
         }else{
@@ -35,7 +32,7 @@ void init_list(){
         }
 
         // ask user for input
-        printf("Insert data(0, 1)?");
+        printf("Insert data(NULL, 1)?");
         scanf("%d", &choice);
     }
 
@@ -43,7 +40,7 @@ void init_list(){
 
 void traverse_list(){
     temp = head;
-    while(temp != 0 ){
+    while(temp != NULL ){
         printf("%d", temp->data);
         temp = temp->next;
     }
@@ -52,7 +49,7 @@ void traverse_list(){
 // return number of elements in the linked list
 int list_count(){
     temp = head;
-    while (temp != 0){
+    while (temp != NULL){
         temp = temp->next;
         count++;
     }
@@ -66,7 +63,7 @@ void insert_at_beginning(){
     scanf("%d", &new_node->data);
 
     // update pointers
-    if(head == 0){
+    if(head == NULL){
         new_node->next = head;
         head = new_node;
     }
@@ -78,7 +75,7 @@ void insert_at_end(){
     printf("Enter data to insert: ");
     scanf("%d", &new_node->data);
 
-    while (temp->next != 0){
+    while (temp->next != NULL){
         temp = temp->next;
     }
 
@@ -112,7 +109,7 @@ void insert_after_position(int position){
 
 // deletion functions
 void delete_from_top(){
-    if(head == 0){
+    if(head == NULL){
         // list is empty. Nothing to delete
         printf("Empty list. Nothing to delete");
     }else{
@@ -124,12 +121,12 @@ void delete_from_top(){
 }
 
 void delete_from_end(){
-    if(head == 0){
+    if(head == NULL){
         printf("Empty list. Nothing to delete");
     }else{
         // traverse the linked list
         temp = head;
-        while(temp->next != 0){
+        while(temp->next != NULL){
             // if we are not yet at the end of the list
             previous_node = temp;
             temp = temp->next;
@@ -144,7 +141,7 @@ void delete_from_position(int position){
     int count = 0; // keep track of the traversed list elements
 
     // mandatory checks if the list is empty
-    if(head == 0){
+    if(head == NULL){
         printf("Empty list.");
     }else if(head->next == NULL){ // if there exists only one element in the list
         temp = head->next;
@@ -152,7 +149,7 @@ void delete_from_position(int position){
         free(temp);
     }else{
         temp = head;
-        while(temp->next != 0){ // TODO:verify this implementation
+        while(temp->next != NULL){ // TODO:verify this implementation
             previous_node = temp;
             temp = temp->next;
             if (count == position){
@@ -166,5 +163,35 @@ void delete_from_position(int position){
     }
 }
 
+// return the address of the last element in the linked list
+struct node* get_tail(struct node* head){
+    if(head == NULL) return NULL;
+    while(head->next != NULL){
+        head = head->next;
+    }
+    return head;
+}
 
+struct node* linear_search(struct node* head, int key){
+    while(head->next != NULL && key != head->data){
+        head = head->next;
+    }
+
+    return top;
+}
+
+void build_sorted_list(struct node* head, int num){
+    current_node = head;
+    while(current_node->next != NULL && num > current_node->data){
+        previous_node = current_node;
+        current_node = current_node->next;
+    }
+
+    new_node = (struct node*) malloc(sizeof(struct node));
+    new_node->data = num;
+
+    // insert the number num
+    previous_node->next = new_node;
+    new_node->next = current_node;
+}
 
