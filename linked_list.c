@@ -2,12 +2,13 @@
 #include <stdlib.h>
 
 int choice, count, position, i = 1;
+
 struct node{
     int data;
     struct node* next;
 };
 
-struct node* head, *new_node, *temp;
+struct node* head, *new_node, *temp, *previous_node, *current_node;
 
 // initially head points to 0
 head = 0;
@@ -107,5 +108,63 @@ void insert_after_position(int position){
         
     }
 }
+
+
+// deletion functions
+void delete_from_top(){
+    if(head == 0){
+        // list is empty. Nothing to delete
+        printf("Empty list. Nothing to delete");
+    }else{
+        // 
+        temp = head;
+        head = temp->next;
+        free(temp); // release the memory
+    }
+}
+
+void delete_from_end(){
+    if(head == 0){
+        printf("Empty list. Nothing to delete");
+    }else{
+        // traverse the linked list
+        temp = head;
+        while(temp->next != 0){
+            // if we are not yet at the end of the list
+            previous_node = temp;
+            temp = temp->next;
+        }
+
+        // if a zero is found, we are at the last element
+        free(temp);
+    }    
+}
+
+void delete_from_position(int position){
+    int count = 0; // keep track of the traversed list elements
+
+    // mandatory checks if the list is empty
+    if(head == 0){
+        printf("Empty list.");
+    }else if(head->next == NULL){ // if there exists only one element in the list
+        temp = head->next;
+        head = NULL;
+        free(temp);
+    }else{
+        temp = head;
+        while(temp->next != 0){ // TODO:verify this implementation
+            previous_node = temp;
+            temp = temp->next;
+            if (count == position){
+                previous_node->next = temp->next;
+                free(temp);
+                
+            }            
+            count++;
+        }
+        
+    }
+}
+
 
 
