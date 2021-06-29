@@ -1,6 +1,5 @@
-
-// functions
 /*
+This code implements queue data stucture using linked lists
 1. enqueue
 2. dequeue
 3. display
