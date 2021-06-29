@@ -172,7 +172,7 @@ struct node* get_tail(struct node* head){
     return head;
 }
 
-struct node* linear_search(struct node* head, int key){
+struct node* sequential_search(struct node* head, int key){
     while(head->next != NULL && key != head->data){
         head = head->next;
     }
@@ -195,3 +195,44 @@ void build_sorted_list(struct node* head, int num){
     new_node->next = current_node;
 }
 
+int arr[50], i = 0;
+void store_list_to_array(struct node* head){
+    while(head->next != NULL){
+        arr[n++] = head->data;
+        head = head->next; // update head pointer
+    }
+}
+
+
+// sorted list
+struct node* M, N, F = NULL;
+
+struct node* merge(struct node* M, struct node* N){
+    // this function merges two sorted linked lists M and N
+    // initially, let the merged list F be empty(NULL)
+
+    // check if the passed lists are empty
+    if(M == NULL) return N;
+    if(N == NULL) return M;
+
+    // while M and N are not empty, compare elements
+    while(M != NULL && N != NULL) {
+        if (M->data < N->data) {
+            // if smallest in M less than smallest in N, add smallest in M to F
+            F->data = M->data;
+            // move on to next number in M
+            M = M->next;
+        } else {
+            // else, add smallest in N to F
+            F->data = N->data;
+            // move on to next number in N
+            N = N->next;
+        }
+    } // end while
+
+    // if M has ended, add remaining numbers in N to F
+    if(M->next == NULL) F->next = N;
+
+    // else add remaining numbers in M to F
+    if(N->next == NULL) F->next = M;
+}
