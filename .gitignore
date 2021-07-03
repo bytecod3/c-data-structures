@@ -25,3 +25,4 @@ MANIFEST
 *.manifest
 .spec
 .idea/
+.o
